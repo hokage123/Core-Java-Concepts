@@ -1,0 +1,23 @@
+//MySetSubList
+import java.util.Comparator;
+import java.util.Set;
+import java.util.TreeSet;
+class Anki599
+{
+public static void main(String... s)
+{
+TreeSet<String> ts=new TreeSet<>();
+ts.add("RED");
+ts.add("ORANGE")
+ts.add("BLUE");
+ts.add("GREEN");
+ts.add("WHITE");
+ts.add("BROWN");
+ts.add("YELLOW");
+ts.add("BLACK");
+System.out.println(ts);
+Set<String> subSet=ts.subSet("GREEN","WHITE");
+System.out.println("subSet:"+subSet);
+subSet=ts.subSet("GREEN",false);
+}
+}
