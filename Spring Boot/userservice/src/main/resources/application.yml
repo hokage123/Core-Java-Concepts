@@ -61,3 +61,13 @@ resilience4j:
           wait-duration: 5s
 
 
+
+    rateLimiter:
+      instances:
+        userRateLimiter:
+          limit-refresh-period: 4s
+          limit-for-period: 2
+          timeout-duration: 0s
+
+
+
