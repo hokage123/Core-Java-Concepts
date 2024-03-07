@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class BookService {
@@ -29,5 +30,45 @@ public class BookService {
         catch (Exception ex)
         {}
         return book;
+    }
+
+    public Book addBook(Book book)
+    {
+        Book book1 = null;
+        try
+        {
+           book1 = bookRepository.save(book);
+        }catch (Exception ex)
+        {
+        }
+        return book1;
+    }
+
+    public Book deleteBook(int bookId)
+    {
+        Book book = null;
+
+        try
+        {
+            book = getBookById(bookId);
+            bookRepository.delete(book);
+        }catch (Exception ex)
+        {
+        }
+        return book;
+    }
+
+    public Book updateBook(int bookId, Book book)
+    {
+        Book book1 = null;
+
+        try
+        {
+            book1 = bookRepository.save(book);
+        }catch (Exception ex)
+        {
+        }
+        return book1;
+
     }
 }
