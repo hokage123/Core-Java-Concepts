@@ -2,6 +2,7 @@ package com.learningjpa.jpaproject.service;
 
 import com.learningjpa.jpaproject.dao.BookRepository;
 import com.learningjpa.jpaproject.entity.Book;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,59 +15,51 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
-    public List<Book> getAllBooks()
-    {
-        List<Book> list = (List<Book>)bookRepository.findAll();
+    public List<Book> getAllBooks() {
+        List<Book> list = (List<Book>) bookRepository.findAll();
         return list;
     }
 
-    public Book getBookById(int bookId)
-    {
-        Book book = null;
+    public Book getBookById(int bookId) {
+        Book book1 = null;
 
         try {
-            bookRepository.findById(bookId);
-        }
-        catch (Exception ex)
-        {}
-        return book;
-    }
-
-    public Book addBook(Book book)
-    {
-        Book book1 = null;
-        try
-        {
-           book1 = bookRepository.save(book);
-        }catch (Exception ex)
-        {
+            book1 = bookRepository.findById(bookId).get();
+        } catch (Exception ex) {
         }
         return book1;
     }
 
-    public Book deleteBook(int bookId)
-    {
+    public Book addBook(Book book) {
+        Book book1 = null;
+        try {
+            book1 = bookRepository.save(book);
+        } catch (Exception ex) {
+        }
+        return book1;
+    }
+
+    public Book deleteBook(int bookId) {
         Book book = null;
 
-        try
-        {
+        try {
             book = getBookById(bookId);
             bookRepository.delete(book);
-        }catch (Exception ex)
-        {
+        } catch (Exception ex) {
         }
         return book;
     }
 
-    public Book updateBook(int bookId, Book book)
-    {
+
+    public Book updateBook(int bookId, Book book) {
         Book book1 = null;
 
-        try
-        {
-            book1 = bookRepository.save(book);
-        }catch (Exception ex)
-        {
+        try {
+            book1 = bookRepository.findById(bookId).get();
+            book1.setAuthor(book.getAuthor());
+            book1.setTitle(book.getTitle());
+            bookRepository.save(book1);
+        } catch (Exception ex) {
         }
         return book1;
 
