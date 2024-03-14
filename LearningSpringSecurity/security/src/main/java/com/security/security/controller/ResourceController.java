@@ -1,4 +1,4 @@
-package com.learningsecurity.securityproject.controller;
+package com.security.security.controller;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
