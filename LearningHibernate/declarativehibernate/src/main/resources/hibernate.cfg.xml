@@ -24,5 +24,9 @@
               class="com.declarativehibernate.declarativehibernate.service.UserManagerService">
             <property name="userManagerDao" ref="userManagerDao"/>
         </bean>
+        <bean id="roleManagerService"
+              class="com.declarativehibernate.declarativehibernate.service.RoleManagerService">
+            <property name="roleManagerDao" ref="roleManagerDao"/>
+        </bean>
 
     </beans>
