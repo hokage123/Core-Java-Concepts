@@ -73,8 +73,45 @@ public class StreamExamples {
         System.out.println(studentsAvgAgeByGender);
 
         // Find the department who is having maximum number of students
-        Map<String, Long> maxStudentDepartment = list.parallelStream()
-                .collect(Collectors.groupingBy(Student::getDepartmantName, Collectors.counting()));
+        String maxStudentDepartment = list.parallelStream()
+                .collect(Collectors.groupingBy(Student::getDepartmantName, Collectors.counting()))
+                .entrySet().stream().max(((o1, o2) -> Long.compare(o1.getValue(), o2.getValue())))
+                .get().getKey();
+        System.out.println(maxStudentDepartment);
+
+        //Find the Students who stays in Delhi and sort them by their names (sorted() function can't be used with parallelstream())
+        List<Student> sortedStudentsInDelhi = list.stream()
+                .filter(Student -> Student.getCity().equals("Delhi"))
+                .sorted((s1, s2) -> s1.getFirstName().compareTo(s2.getFirstName()))
+                .collect(Collectors.toList());
+        System.out.println(sortedStudentsInDelhi);
+
+        //Find the average rank in all departments
+        Map<String, Double> avgRankInAllDepts = list.parallelStream()
+                .collect(Collectors.groupingBy(Student::getDepartmantName,
+                        Collectors.averagingDouble(Student::getRank)));
+        System.out.println(avgRankInAllDepts);
+
+
+        //Find the highest rank in each department
+        Map<String, Optional<Student>> highestRankInAllDepts = list.parallelStream()
+                .collect(Collectors.groupingBy(Student::getDepartmantName,
+                        Collectors.maxBy((s1,s2) -> Long.compare(s1.getRank(), s2.getRank()))));
+        System.out.println(highestRankInAllDepts);
+
+        //Find the list of students and sort them by their rank (sorted() function can't be used with parallelstream())
+        List<Student> studentsSortedByRank = list.stream()
+                .sorted((s1,s2) -> Long.compare(s1.getRank(), s2.getRank()))
+                .collect(Collectors.toList());
+        System.out.println(studentsSortedByRank);
+
+        // Find the student who has second rank
+        Student studentWithSecondRank = list.stream()
+                .sorted((s1,s2) -> Long.compare(s1.getRank(), s2.getRank()))
+                .skip(1)
+                .findFirst()
+                .get();
+        System.out.println(studentWithSecondRank);
 
 
     }
