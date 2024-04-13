@@ -114,5 +114,31 @@ public class StreamExamples {
         System.out.println(studentWithSecondRank);
 
 
+        //Make a map of student firstname with department
+        Map<String, String> nameDeptMap = list.parallelStream()
+                .collect(Collectors.toMap(Student::getFirstName, Student::getDepartmantName));
+        System.out.println(nameDeptMap);
+
+
+        //Using Flatmap
+        List<List<String>>  listsOfLists = new ArrayList<>();
+        List<String> list1 = new ArrayList<>();
+        list1.add("a");
+        list1.add("b");
+        list1.add("c");
+        List<String> list2 = new ArrayList<>();
+        list2.add("1");
+        list2.add("2");
+        list2.add("3");
+        listsOfLists.add(list1);
+        listsOfLists.add(list2);
+        List<String> allStrings = listsOfLists.parallelStream()
+                .flatMap(l -> l.parallelStream())
+                .collect(Collectors.toList());
+        System.out.println(allStrings);
+
+
+
+
     }
 }
